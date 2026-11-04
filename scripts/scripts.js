@@ -10,7 +10,15 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  getMetadata,
 } from './aem.js';
+import {
+  applyDesignTokenDataAttributes,
+  applyDesignTokenStyle,
+  loadDesignTokens,
+} from './design-tokens.js';
+
+const designTokensReady = loadDesignTokens();
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -147,12 +155,19 @@ function decorateButtons(main) {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
-export function decorateMain(main) {
+export async function decorateMain(main) {
+  await designTokensReady;
+  if (!window.daStyleSwitcherLive) {
+    const theme = getMetadata('theme');
+    if (theme) applyDesignTokenStyle(document.body, theme);
+  }
+
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  applyDesignTokenDataAttributes(main);
 }
 
 /**
@@ -164,7 +179,7 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    decorateMain(main);
+    await decorateMain(main);
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }
@@ -209,6 +224,10 @@ function loadDelayed() {
 }
 
 async function loadPage() {
+  if (window.self !== window.top) {
+    const { initCanvasStyleSwitcher } = await import('./style-switcher.js');
+    initCanvasStyleSwitcher();
+  }
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
