@@ -1,34 +1,36 @@
-# Your Project's Title...
-Your project's description...
+# Style Picker
 
-## Environments
-- Preview: https://main--style-picker--davidnuescheler.aem.page/
-- Live: https://main--style-picker--davidnuescheler.aem.live/
-
-## Documentation
-
-Before using the aem-boilerplate, we recommend you to go through the documentation on https://www.aem.live/docs/ and more specifically:
-1. [Developer Tutorial](https://www.aem.live/developer/tutorial)
-2. [The Anatomy of a Project](https://www.aem.live/developer/anatomy-of-a-project)
-3. [Web Performance](https://www.aem.live/developer/keeping-it-100)
-4. [Markup, Sections, Blocks, and Auto Blocking](https://www.aem.live/developer/markup-sections-blocks)
+Style Picker is a DA canvas extension for applying design-token styles to page
+blocks, sections, and the page theme. It reads styles from the site's DA
+spreadsheet and previews changes in the canvas.
 
 ## Installation
 
-```sh
-npm i
-```
+Replace `<org>` and `<site>` below with your DA organization and site names.
 
-## Linting
+1. Create a spreadsheet at
+   [https://da.live/sheet#/<org>/<site>/config/styles](https://da.live/sheet#/<org>/<site>/config/styles).
+   The first column contains style names. Add columns for the style properties
+   you want to manage, such as Background, Foreground, Accent color, Layout
+   split, Horizontal alignment, Vertical alignment, and Font sizes. The picker
+   reads this sheet as `/config/styles.json`.
+2. Open the site's configuration at
+   [https://da.live/config#/<org>/<site>/](https://da.live/config#/<org>/<site>/)
+   open the `library` sheet, and add the following row:
 
-```sh
-npm run lint
-```
+   | title | path |
+   | --- | --- |
+   | Style Picker | `https://main--<site>--<org>.aem.page/tools/style-switcher/style-switcher.html` |
 
-## Local development
+3. Save and publish the configuration. Open the site's page in DA canvas and
+   select **Style Picker** from the extensions.
 
-1. Create a new repository based on the `aem-boilerplate` template
-1. Add the [AEM Code Sync GitHub App](https://github.com/apps/aem-code-sync) to the repository
-1. Install the [AEM CLI](https://github.com/adobe/helix-cli): `npm install -g @adobe/aem-cli`
-1. Start AEM Proxy: `aem up` (opens your browser at `http://localhost:3000`)
-1. Open the `style-picker` directory in your favorite IDE and start coding :)
+## Styled Banner
+
+Use a **Styled Banner** block with one row containing an image cell and a
+content cell, in either order. Add the **background** variant to the block or
+section to place the image behind the content. A single image cell can also
+contain text for the background variant. Style names can be added as block
+variants or section styles; layout and font-size properties become data
+attributes on the block. Without a style, the image banner uses a white
+surface and dark text. The existing **Banner** block is unchanged.
