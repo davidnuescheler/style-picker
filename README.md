@@ -1,6 +1,6 @@
 # Style Picker
 
-https://main--style-picker--davidnuescheler.aem.page/media_1f4b7580caa1ffa601f975989772190931a0da0ba.mp4
+https://main--style-picker--davidnuescheler.aem.page/media_1417588370514d93959c022777c3b74ecdaf6663d.mp4
 
 Style Picker is a DA canvas extension for applying design-token styles to page
 blocks, sections, and the page theme. It reads styles from the site's DA
